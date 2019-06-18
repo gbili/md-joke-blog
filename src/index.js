@@ -1,5 +1,12 @@
-const sayHello = _ => "Hello!";
+import http from 'http';
 
-console.log(sayHello());
+const port = process.env.port || 1337;
 
-export default sayHello;
+const app = http.createServer(function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/plain; charset=utf-8'});
+  res.end('A simple micro blog website with no frills nor nonsense');
+});
+
+app.listen(port);
+
+console.log(`Listening on : http://localhost:${port}`);

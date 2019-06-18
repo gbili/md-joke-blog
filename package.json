@@ -40,5 +40,8 @@
     "mocha": "6.1.4",
     "nodemon": "1.19.1"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "directories": {
+    "test": "test"
+  }
 }
