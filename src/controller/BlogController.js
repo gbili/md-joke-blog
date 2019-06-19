@@ -1,4 +1,5 @@
 import fs from 'fs';
+import marked from 'marked';
 
 class BlogController {
   constructor() {
@@ -53,7 +54,7 @@ class BlogController {
       fs.readFile(filepath, 'utf-8', function(err, fileContents) {
         (err && reject(err)) || resolve({
           title: postName,
-          content: fileContents
+          content: marked(fileContents)
         });
       });
     });
