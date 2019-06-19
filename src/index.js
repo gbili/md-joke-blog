@@ -1,22 +1,34 @@
 import http from 'http';
-import { URL } from 'url';
 import BlogRoute from './route/BlogRoute';
+import BlogController from './controller/BlogController';
 
 const port = process.env.port || 1337;
 
 const app = http.createServer(function (req, res) {
-  const blogRoute = new BlogRoute({
+
+  const route = new BlogRoute({
     path: '/',
     validPostNames: [],
   });
-  if (blogRoute.matches(req) && blogRoute.isValid(req)) {
-    console.log('I can handle the request');
-    res.writeHead(200, {'Content-Type': 'text/plain; charset=utf-8'});
-    res.end('I will soon send you the blog contents');
+
+  if (route.matches(req) && route.isValid(req)) {
+    const controller = new BlogController();
+
+    const response = controller.dispatch({
+      action: 'post'
+      params: {
+        postName: blogRoute.getRequestedPostName(req),
+      }
+    });
+
+    res.writeHead(respoonse.code, response.headers);
+    res.end(response.body);
     return;
   }
+
   res.writeHead(404, {'Content-Type': 'text/plain; charset=utf-8'});
   res.end('404 Not Found.');
+
 });
 
 app.listen(port);
