@@ -5,9 +5,6 @@ import BlogRoute from './route/BlogRoute';
 const port = process.env.port || 1337;
 
 const app = http.createServer(function (req, res) {
-  console.log(req.url);
-  //req.url = new URL(req.url);
-  console.log('URL');
   const blogRoute = new BlogRoute({
     path: '/',
     validPostNames: [],
