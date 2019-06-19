@@ -40,7 +40,9 @@
     "mocha": "6.1.4",
     "nodemon": "1.19.1"
   },
-  "dependencies": {},
+  "dependencies": {
+    "primap": "1.0.0"
+  },
   "directories": {
     "test": "test"
   }
