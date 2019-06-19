@@ -4,24 +4,24 @@ import BlogController from './controller/BlogController';
 
 const port = process.env.port || 1337;
 
-const app = http.createServer(function (req, res) {
+const app = http.createServer(async function (req, res) {
 
   const route = new BlogRoute({
     path: '/',
-    validPostNames: [],
+    validPostNames: ['my-blog-post'],
   });
 
   if (route.matches(req) && route.isValid(req)) {
     const controller = new BlogController();
 
-    const response = controller.dispatch({
-      action: 'post'
+    const response = await controller.dispatch({
+      action: 'post',
       params: {
-        postName: blogRoute.getRequestedPostName(req),
+        postName: route.getRequestedPostName(req),
       }
     });
 
-    res.writeHead(respoonse.code, response.headers);
+    res.writeHead(response.code, response.headers);
     res.end(response.body);
     return;
   }
