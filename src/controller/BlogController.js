@@ -17,21 +17,16 @@ class BlogController {
   }
 
   loadView(viewData) {
-    const filepath = `${__dirname}../view/${this.action}.html`;
+    const filepath = `${__dirname}/../view/${this.action}.html`;
     return new Promise(function(resolve, reject) {
       fs.readFile(filepath, 'utf-8', function(err, viewTemplate) {
-        if (err) {
-          return reject(err)
-        }
-        this.response.headers = {
-          'content-type': 'text/html; charset=utf-8'
-        };
-        resolve(viewTemplate, viewData);
+        if (err) return reject(err);
+        resolve({viewTemplate, viewData});
       });
     });
   }
 
-  hydrateView(viewTemplate, viewData) {
+  hydrateView({viewTemplate, viewData}) {
     for (let param in viewData) {
       viewTemplate = viewTemplate.replace(
         new RegExp(`{{ ${param} }}`, 'g'),
@@ -39,6 +34,7 @@ class BlogController {
       );
     }
     this.response.code = 200;
+    this.response.headers = {'content-type': 'text/html; charset=utf-8'};
     this.response.body = viewTemplate;
     return this.response;
   }
@@ -52,7 +48,7 @@ class BlogController {
 
   postAction(params) {
     const { postName } = params;
-    const filepath = `${__dirname}../../content/${postName}.md`;
+    const filepath = `${__dirname}/../../content/${postName}.md`;
     return new Promise(function(resolve, reject) {
       fs.readFile(filepath, 'utf-8', function(err, fileContents) {
         (err && reject(err)) || resolve({
@@ -62,5 +58,6 @@ class BlogController {
       });
     });
   }
-
 }
+
+export default BlogController;
