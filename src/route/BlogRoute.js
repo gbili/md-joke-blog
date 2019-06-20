@@ -1,47 +1,41 @@
-import _p from 'primap';
+import BlogController from '../controller/BlogController';
+import BaseRoute from './BaseRoute'
 
-class BlogRoute {
-  constructor({ path, validPostNames }) {
-    _p.bind(this);
-    this.path = path;
-    this.validPostNames = validPostNames;
-  }
-
-  static checkReq(req) {
-    if (typeof req.url !== 'string') throw new Error('req.url must be a string');
+class BlogRoute extends BaseRoute {
+  constructor(path, request, params) {
+    super(path, request, params);
+    ({ validPostNames: this.validPostNames } = params);
   }
 
-  get path() {
-    return _p().path;
-  }
-  set path(path) {
-    if (typeof path !== 'string') throw new Error('Path must be a string');
-    _p().path = path;
+  getController() {
+    return new BlogController();
   }
 
-  get validPostNames() {
-    return _p().validPostNames;
+  getAction() {
+    return 'post';
   }
-  set validPostNames(list) {
-    if (list.constructor !== Array) throw new Error('Post names should be an array');
-    _p().validPostNames = list;
+
+  getParams() {
+    return {
+      postName: this.getRequestedPostName(),
+    };
   }
 
   matches(req) {
-    BlogRoute.checkReq(req);
+    req = req || this.request;
     const { url, method } = req;
     return method === 'GET'
       && url.indexOf(this.path) === 0;
   }
 
-  getRequestedPostName(req) {
-    BlogRoute.checkReq(req);
-    const [, postName] = req.url.split(this.path);
-    return postName;
-  }
-
   isValid(req) {
     return this.validPostNames.indexOf(this.getRequestedPostName(req)) >= 0;
+  }
+
+  getRequestedPostName(req) {
+    req = req || this.request;
+    const [, postName] = req.url.split(this.path);
+    return postName;
   }
 }
 

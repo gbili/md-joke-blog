@@ -1,11 +1,14 @@
 import fs from 'fs';
 import marked from 'marked';
 import Prism from 'prismjs';
-import BaseController from './BaseController';
+import HtmlTemplateController from './HtmlTemplateController';
 
-class BlogController extends BaseController{
-  postAction(params) {
-    const { postName } = params;
+class BlogController extends HtmlTemplateController {
+  constructor() {
+    super();
+  }
+
+  loadMarkdown(postName) {
     const filepath = `${__dirname}/../../content/${postName}.md`;
     return new Promise(function(resolve, reject) {
       fs.readFile(filepath, 'utf-8', function(err, fileContents) {
@@ -18,7 +21,20 @@ class BlogController extends BaseController{
           }),
         });
       });
-    });
+    })
+  };
+
+  homeAction({content}) {
+     return this.loadViewTemplate({title:'Home', content})
+       .then(this.hydrateView)
+       .catch(this.handleError);
+  }
+
+  postAction({ postName }) {
+    return this.loadMarkdown(postName)
+      .then(this.loadViewTemplate)
+      .then(this.hydrateView)
+      .catch(this.handleError);
   }
 }
 
