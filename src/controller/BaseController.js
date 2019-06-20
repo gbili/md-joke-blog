@@ -6,8 +6,15 @@ class BaseController {
     _p.bind(this);
     this.response = {};
 
+    _p().getControllerName = (function() {
+      const fullName = this.constructor.name;
+      return fullName
+        .substring(0, fullName.length - 'Controller'.length)
+        .toLowerCase();
+    }).bind(this);
+
     _p().loadView = (function(viewData) {
-      const filepath = `${__dirname}/../view/${this.action}.html`;
+      const filepath = `${__dirname}/../view/${_p().getControllerName()}-${this.action}.html`;
       return new Promise(function(resolve, reject) {
         fs.readFile(filepath, 'utf-8', function(err, viewTemplate) {
           if (err) return reject(err);
