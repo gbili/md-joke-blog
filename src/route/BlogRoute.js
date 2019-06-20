@@ -1,8 +1,8 @@
-const _p = new WeakMap();
+import _p from 'primap';
 
 class BlogRoute {
   constructor({ path, validPostNames }) {
-    _p.set(this, {});
+    _p.bind(this);
     this.path = path;
     this.validPostNames = validPostNames;
   }
@@ -12,19 +12,19 @@ class BlogRoute {
   }
 
   get path() {
-    return _p.get(this).path;
+    return _p().path;
   }
   set path(path) {
     if (typeof path !== 'string') throw new Error('Path must be a string');
-    _p.get(this).path = path;
+    _p().path = path;
   }
 
   get validPostNames() {
-    return _p.get(this).validPostNames;
+    return _p().validPostNames;
   }
   set validPostNames(list) {
     if (list.constructor !== Array) throw new Error('Post names should be an array');
-    _p.get(this).validPostNames = list;
+    _p().validPostNames = list;
   }
 
   matches(req) {
