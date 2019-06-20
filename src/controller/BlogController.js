@@ -11,7 +11,11 @@ class BlogController extends BaseController{
       fs.readFile(filepath, 'utf-8', function(err, fileContents) {
         (err && reject(err)) || resolve({
           title: postName,
-          content: marked(fileContents)
+          content: marked(fileContents, {
+            highlight: function(code, lang) {
+              return Prism.highlight(code, Prism.languages[lang], lang);
+            },
+          }),
         });
       });
     });

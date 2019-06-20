@@ -37,9 +37,11 @@
     "@babel/preset-env": "7.4.5",
     "@babel/register": "7.4.4",
     "chai": "4.2.0",
+    "github-markdown-css": "3.0.1",
     "marked": "0.6.2",
     "mocha": "6.1.4",
-    "nodemon": "1.19.1"
+    "nodemon": "1.19.1",
+    "prismjs": "1.16.0"
   },
   "dependencies": {
     "primap": "1.0.0"
