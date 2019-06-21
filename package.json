@@ -39,6 +39,7 @@
     "chai": "4.2.0",
     "github-markdown-css": "3.0.1",
     "marked": "0.6.2",
+    "mime-types": "2.1.24",
     "mocha": "6.1.4",
     "nodemon": "1.19.1",
     "prismjs": "1.16.0"
