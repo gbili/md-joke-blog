@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import BlogRoute from '../../src/route/BlogRoute';
+import BlogPostRoute from '../../src/route/BlogPostRoute';
 
-describe(`BlogRoute`, function() {
+describe(`BlogPostRoute`, function() {
   const existingPostName = 'postname-1'
   const path = '/blog/';
   const req = {
@@ -15,10 +15,10 @@ describe(`BlogRoute`, function() {
     url: `${badPath}${unknownPostName}`,
   };
 
-  const route = new BlogRoute({
-    path,
-    validPostNames: [ existingPostName ],
-  });
+  const route = new BlogPostRoute(path, null, {
+      validPostSlugList: [ existingPostName ],
+    }
+  );
 
   describe(`path`, function() {
     it('should return what was set on construction', function() {

@@ -1,16 +1,18 @@
-import BlogRoute from '../src/route/BlogRoute';
+import BlogPostRoute from '../src/route/BlogPostRoute';
 import BlogHomeRoute from '../src/route/BlogHomeRoute';
 import StaticFileRoute from '../src/route/StaticFileRoute';
 import NotFoundRoute from '../src/route/NotFoundRoute';
+
+const validPostSlugList = ['my-blog-post'];
 
 const routerConfig = {
   routes: [
     // post route
     {
       path: '/', 
-      route: BlogRoute,
+      route: BlogPostRoute,
       params: {
-        validPostNames: ['my-blog-post'],
+        validPostSlugList,
       }
     },
     // main 
@@ -18,7 +20,7 @@ const routerConfig = {
       path: '/',
       route: BlogHomeRoute,
       params: {
-        validPostNames: ['my-blog-post'],
+        validPostSlugList,
       }
     },
     {

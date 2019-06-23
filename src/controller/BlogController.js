@@ -8,12 +8,12 @@ class BlogController extends HtmlTemplateController {
     super();
   }
 
-  loadMarkdown(postName) {
-    const filepath = `${__dirname}/../../content/${postName}.md`;
+  loadMarkdown(postSlug) {
+    const filepath = `${__dirname}/../../content/${postSlug}.md`;
     return new Promise(function(resolve, reject) {
       fs.readFile(filepath, 'utf-8', function(err, fileContents) {
         (err && reject(err)) || resolve({
-          title: postName,
+          title: postSlug,
           content: marked(fileContents, {
             highlight: function(code, lang) {
               return Prism.highlight(code, Prism.languages[lang], lang);
@@ -24,14 +24,14 @@ class BlogController extends HtmlTemplateController {
     })
   };
 
-  homeAction({content}) {
+  homeAction({ content }) {
      return this.loadViewTemplate({title:'Home', content})
        .then(this.hydrateView)
        .catch(this.handleError);
   }
 
-  postAction({ postName }) {
-    return this.loadMarkdown(postName)
+  postAction({ postSlug }) {
+    return this.loadMarkdown(postSlug)
       .then(this.loadViewTemplate)
       .then(this.hydrateView)
       .catch(this.handleError);

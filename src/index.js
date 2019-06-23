@@ -1,5 +1,5 @@
 import http from 'http';
-import BlogRoute from './route/BlogRoute';
+import BlogPostRoute from './route/BlogPostRoute';
 import BlogController from './controller/BlogController';
 import Router from './route/Router.js';
 import routerConfig from '../config/router-config';

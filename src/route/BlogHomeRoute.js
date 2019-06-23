@@ -1,8 +1,8 @@
 import _p from 'primap';
 import BlogController from '../controller/BlogController';
-import BlogRoute from './BlogRoute'
+import BlogPostRoute from './BlogPostRoute'
 
-class BlogHomeRoute extends BlogRoute {
+class BlogHomeRoute extends BlogPostRoute {
   constructor(path, request, params) {
     super(path, request, params);
   }
@@ -17,7 +17,7 @@ class BlogHomeRoute extends BlogRoute {
 
   getParams() {
     return {
-      content: this.validPostNames.join(', '),
+      content: this.validPostsSlugList.join(', '),
     };
   }
 
