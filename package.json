@@ -6,6 +6,7 @@
   "scripts": {
     "clean": "rm -fr ./build/*",
     "prebuild": "npm run clean",
+    "makeconfig": "babel-node ./config/index.js",
     "build": "babel -d ./build ./src",
     "test": "mocha --require @babel/register --recursive",
     "develop": "nodemon --exec babel-node ./src/index.js",

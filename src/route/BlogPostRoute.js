@@ -1,10 +1,10 @@
 import BlogController from '../controller/BlogController';
 import BaseRoute from './BaseRoute'
 
-class BlogRoute extends BaseRoute {
+class BlogPostRoute extends BaseRoute {
   constructor(path, request, params) {
     super(path, request, params);
-    ({ validPostNames: this.validPostNames } = params);
+    ({ validPostSlugList: this.validPostSlugList } = params);
   }
 
   getController() {
@@ -17,7 +17,7 @@ class BlogRoute extends BaseRoute {
 
   getParams() {
     return {
-      postName: this.getRequestedPostName(),
+      postSlug: this.getRequestedPostSlug(),
     };
   }
 
@@ -29,14 +29,14 @@ class BlogRoute extends BaseRoute {
   }
 
   isValid(req) {
-    return this.validPostNames.indexOf(this.getRequestedPostName(req)) >= 0;
+    return this.validPostSlugList.indexOf(this.getRequestedPostSlug(req)) >= 0;
   }
 
-  getRequestedPostName(req) {
+  getRequestedPostSlug(req) {
     req = req || this.request;
-    const [, postName] = req.url.split(this.path);
-    return postName;
+    const [, postSlug] = req.url.split(this.path);
+    return postSlug;
   }
 }
 
-export default BlogRoute;
+export default BlogPostRoute;
