@@ -1,7 +1,27 @@
 # Simplest Whitelist Blog
-## Initial Setup
-A package that will let you write blog posts using Markdown. These posts have to live in their own git repository (let's call it `my-posts` for illustration purposes). `my-posts` repo will have a `package.json` and `.travis.yml` (or other ci config) copied from `nodeblog-consumer` repo (and also a `.gitignore`). This `package.json` will have `nodeblog` as a `devDependency` and a few npm commands for your continuous ci.
+A package that will let serve your Markdown files as blog posts. These posts have to live in their own git repository (let's call it `my-posts` for illustration purposes). `my-posts` repo will have a `package.json` and `.travis.yml` (or other ci config) copied from `nodeblog-consumer` repo (and also a `.gitignore`). This `package.json` will have `nodeblog` as a `devDependency` and a few npm commands for your continuous ci.
 Then do `npm install` to get dependencies from npm. This will generate a `package-lock.json` within your `my-posts` repo. You need to `git commit -m "feat(blog): add blogging support"`.
+
+## Initial Setup
+```
+git clone git@github.com:gbili/nodeblog-consumer
+cd nodeblog-consumer && rm -fr .git && cd ..
+
+cd my-blog-posts-dir
+mkdir content
+mv *.md content
+
+cp -ifR ../nodeblog-consumer/* ./
+
+npm install
+
+git add .
+git commit -m "feat: bloggify my markdown files"
+
+npm run makeconfig
+npm run develop
+```
+
 ## After setup usage
 Now that everything is set up. You can simply edit your blog posts and track the changes with `git add . && git commit -m "feat: new blog post about stuff"`. Make sure to use `conventional-commits` messages to allow `semantic-realease` to bump up the versions for you, and let your ci deploy the changes to your production.
 
