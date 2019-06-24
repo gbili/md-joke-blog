@@ -7,8 +7,8 @@ class NotFoundRoute extends BaseRoute {
     super(path, request, params);
   }
 
-  getController() {
-    return new NotFoundController();
+  getController(config) {
+    return new NotFoundController(config);
   }
 
   getAction() {

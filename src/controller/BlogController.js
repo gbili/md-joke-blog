@@ -2,16 +2,15 @@ import fs from 'fs';
 import marked from 'marked';
 import Prism from 'prismjs';
 import HtmlTemplateController from './HtmlTemplateController';
-import config from '../config/global'
 
 class BlogController extends HtmlTemplateController {
-  constructor() {
-    super();
+  constructor(config) {
+    super(config);
   }
 
   loadMarkdown(postSlug) {
-    const mdBlogPostsDir = (typeof config.mdBlogPostsDir !== 'undefined')
-      ? config.mdBlogPostsDir
+    const mdBlogPostsDir = (typeof this.config.mdBlogPostsDir !== 'undefined')
+      ? this.config.mdBlogPostsDir
       : `${__dirname}/../../content`;
     const filepath = `${mdBlogPostsDir}/${postSlug}.md`
     return new Promise(function(resolve, reject) {

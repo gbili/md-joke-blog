@@ -1,14 +1,14 @@
 import _p from 'primap';
 import BlogController from '../controller/BlogController';
-import BlogPostRoute from './BlogPostRoute'
+import BlogPostRoute from './BlogPostRoute';
 
 class BlogHomeRoute extends BlogPostRoute {
   constructor(path, request, params) {
     super(path, request, params);
   }
 
-  getController() {
-    return new BlogController();
+  getController(config) {
+    return new BlogController(config);
   }
 
   getAction() {

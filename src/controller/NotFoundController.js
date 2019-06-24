@@ -2,8 +2,8 @@ import fs from 'fs';
 import BaseController from './BaseController';
 
 class NotFoundController extends BaseController {
-  constructor() {
-    super();
+  constructor(config) {
+    super(config);
   }
 
   indexAction() {

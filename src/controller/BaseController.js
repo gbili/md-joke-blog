@@ -1,5 +1,6 @@
 class BaseController {
-  constructor() {
+  constructor(config) {
+    this.config = config || {};
     this.response = {};
     this.action = null;
     this.handleError = this.handleError.bind(this);

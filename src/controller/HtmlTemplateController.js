@@ -2,8 +2,8 @@ import fs from 'fs';
 import BaseController from './BaseController';
 
 class HtmlTemplateController extends BaseController {
-  constructor() {
-    super();
+  constructor(config) {
+    super(config);
     this.loadViewTemplate = this.loadViewTemplate.bind(this);
     this.hydrateView = this.hydrateView.bind(this);
   }
@@ -16,7 +16,10 @@ class HtmlTemplateController extends BaseController {
   }
 
   loadViewTemplate(viewData) {
-    const filepath = `${__dirname}/../view/${this.getViewBaseName()}-${this.action}.html`;
+    const viewsPath = (typeof this.config.viewsPath !== 'undefined')
+      ? this.config.viewsPath
+      : `${__dirname}/../view`;
+    const filepath = `${viewsPath}/${this.getViewBaseName()}-${this.action}.html`;
     return new Promise(function(resolve, reject) {
       fs.readFile(filepath, 'utf-8', function(err, viewTemplate) {
         if (err) return reject(err);

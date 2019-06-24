@@ -3,13 +3,13 @@ import mime from 'mime-types';
 import BaseController from './BaseController';
 
 class StaticFileController extends BaseController {
-  constructor() {
-    super();
+  constructor(config) {
+    super(config);
   }
 
   indexAction({ filepath }) {
-    const staticFilesDir = (typeof config.staticFilesDir !== 'undefined')
-      ? config.staticFilesDir
+    const staticFilesDir = (typeof this.config.staticFilesDir !== 'undefined')
+      ? this.config.staticFilesDir
       : `${__dirname}/../../static`;
     filepath = `${staticFilesDir}/${filepath}`;
     return (new Promise(function(resolve, reject) {

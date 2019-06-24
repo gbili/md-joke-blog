@@ -7,8 +7,8 @@ class BlogPostRoute extends BaseRoute {
     ({ validPostSlugList: this.validPostSlugList } = params);
   }
 
-  getController() {
-    return new BlogController();
+  getController(config) {
+    return new BlogController(config);
   }
 
   getAction() {

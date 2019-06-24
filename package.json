@@ -6,10 +6,10 @@
   "scripts": {
     "clean": "rm -fr ./build/*",
     "prebuild": "npm run clean",
-    "makeconfig": "babel-node ./config/index.js",
-    "build": "babel -d ./build ./src",
+    "makeconfig": "rm -f ./config/post-list.json && rm -f ./config/static-file-list.json && babel-node ./src/config/generate.js && babel ./config/global.js --out-file ./config/global-built.js",
+    "build": "npm run makeconfig && babel -d ./build ./src",
     "test": "mocha --require @babel/register --recursive",
-    "develop": "nodemon --exec babel-node ./src/index.js",
+    "develop": "npm run makeconfig && nodemon --exec babel-node ./src/index.js",
     "serve": "node ./build/index.js"
   },
   "repository": {
@@ -46,7 +46,8 @@
     "prismjs": "1.16.0"
   },
   "dependencies": {
-    "primap": "1.0.0"
+    "primap": "1.0.0",
+    "recursive-readdir": "^2.2.2"
   },
   "directories": {
     "test": "test"

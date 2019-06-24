@@ -1,13 +1,17 @@
+import { resolve } from 'path';
 import BlogPostRoute from '../src/route/BlogPostRoute';
 import BlogHomeRoute from '../src/route/BlogHomeRoute';
 import StaticFileRoute from '../src/route/StaticFileRoute';
 import NotFoundRoute from '../src/route/NotFoundRoute';
 import postList from './post-list';
+import staticFileList from './static-file-list';
+import dir from './dir';
 
 const validPostSlugList = postList.map(fileName => fileName.split('.').shift());
+const relativeStaticFileList = staticFileList.map(fullPath => fullPath.split(resolve(dir.staticFilesDir)).pop());
 
-export default {
-  mdBlogPostsDir: `${__dirname}/../content`,
+const config = {
+  ...dir,
   routes: [
     // post route
     {
@@ -29,7 +33,7 @@ export default {
       path: '/css/',
       route: StaticFileRoute,
       params: {
-        staticFilePaths: ['/css/prism.css'],
+        staticFilePaths: relativeStaticFileList,
       }
     },
     {
@@ -39,3 +43,5 @@ export default {
     },
   ],
 };
+
+export default config;

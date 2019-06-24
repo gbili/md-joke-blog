@@ -21,7 +21,7 @@ class Router {
 
     const route = capableRoutes.shift();
 
-    const controller = route.getController();
+    const controller = route.getController(config);
     const disparams = {
       action: route.getAction(),
       params: route.getParams(),
