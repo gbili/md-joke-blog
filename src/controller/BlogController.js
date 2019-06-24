@@ -27,8 +27,8 @@ class BlogController extends HtmlTemplateController {
     })
   };
 
-  homeAction({ content }) {
-     return this.loadViewTemplate({title:'Home', content})
+  homeAction({ posts }) {
+     return this.loadViewTemplate({title:'Home', posts})
        .then(this.hydrateView)
        .catch(this.handleError);
   }

@@ -17,7 +17,7 @@ class BlogHomeRoute extends BlogPostRoute {
 
   getParams() {
     return {
-      content: this.validPostSlugList.join(', '),
+      posts: this.validPostSlugList,
     };
   }
 

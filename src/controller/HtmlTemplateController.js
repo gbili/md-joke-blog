@@ -1,5 +1,6 @@
 import fs from 'fs';
 import BaseController from './BaseController';
+import TemplateEngine from '../util/TemplateEngine';
 
 class HtmlTemplateController extends BaseController {
   constructor(config) {
@@ -29,15 +30,10 @@ class HtmlTemplateController extends BaseController {
   }
 
   hydrateView({viewTemplate, viewData}) {
-    for (let param in viewData) {
-      viewTemplate = viewTemplate.replace(
-        new RegExp(`{{ ${param} }}`, 'g'),
-        viewData[param]
-      );
-    }
+    const hydratedView = TemplateEngine.hydrate(viewTemplate, viewData);
     this.response.code = 200;
     this.response.headers = {'content-type': 'text/html; charset=utf-8'};
-    this.response.body = viewTemplate;
+    this.response.body = hydratedView;
     return this.response;
   }
 }
