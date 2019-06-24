@@ -2,7 +2,7 @@ import http from 'http';
 import BlogPostRoute from './route/BlogPostRoute';
 import BlogController from './controller/BlogController';
 import Router from './route/Router.js';
-import config from '../config/global';
+import config from '../config/global-built';
 
 const port = process.env.port || 1337;
 

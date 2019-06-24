@@ -1,4 +1,5 @@
 import _p from 'primap';
+import config from '../../config/global-built'
 
 class Router {
   constructor() {
