@@ -2,6 +2,7 @@ import fs from 'fs';
 import marked from 'marked';
 import Prism from 'prismjs';
 import HtmlTemplateController from './HtmlTemplateController';
+import config from '../config/global'
 
 class BlogController extends HtmlTemplateController {
   constructor() {
@@ -9,7 +10,10 @@ class BlogController extends HtmlTemplateController {
   }
 
   loadMarkdown(postSlug) {
-    const filepath = `${__dirname}/../../content/${postSlug}.md`;
+    const mdBlogPostsDir = (typeof config.mdBlogPostsDir !== 'undefined')
+      ? config.mdBlogPostsDir
+      : `${__dirname}/../../content`;
+    const filepath = `${mdBlogPostsDir}/${postSlug}.md`
     return new Promise(function(resolve, reject) {
       fs.readFile(filepath, 'utf-8', function(err, fileContents) {
         (err && reject(err)) || resolve({

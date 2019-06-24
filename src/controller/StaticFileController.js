@@ -8,7 +8,10 @@ class StaticFileController extends BaseController {
   }
 
   indexAction({ filepath }) {
-    filepath = `${__dirname}/../../static/${filepath}`;
+    const staticFilesDir = (typeof config.staticFilesDir !== 'undefined')
+      ? config.staticFilesDir
+      : `${__dirname}/../../static`;
+    filepath = `${staticFilesDir}/${filepath}`;
     return (new Promise(function(resolve, reject) {
         fs.readFile(filepath, 'utf-8', function(err, rawContents) {
           if (err) return reject(err);

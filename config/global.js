@@ -6,7 +6,8 @@ import postList from './post-list';
 
 const validPostSlugList = postList.map(fileName => fileName.split('.').shift());
 
-const routerConfig = {
+export default {
+  mdBlogPostsDir: `${__dirname}/../content`,
   routes: [
     // post route
     {
@@ -38,5 +39,3 @@ const routerConfig = {
     },
   ],
 };
-
-export default routerConfig;
