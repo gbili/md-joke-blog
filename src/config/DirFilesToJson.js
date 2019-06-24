@@ -1,4 +1,5 @@
 import fs from 'fs';
+import recursive from 'recursive-readdir'
 
 class DirFilesToJson {
   constructor({ sourceDir, destFile }) {
@@ -8,10 +9,11 @@ class DirFilesToJson {
     this.writeJsonFilePromise = this.writeJsonFilePromise.bind(this);
   }
 
-  readFilesListPromise() {
+  readFilesListPromise(recrusiveRead) {
+    const readingFunction = recrusiveRead ? recursive : fs.readdir;
     return (
       new Promise((function (resolve, reject) {
-        fs.readdir(this.sourceDir, (err, files) => {
+        readingFunction(this.sourceDir, (err, files) => {
           if (err) reject(err);
           resolve(files);
         });
@@ -35,11 +37,12 @@ class DirFilesToJson {
     );
   }
 
-  generate(onSuccess, onFail) {
+  generate(onSuccess, onFail, recrusiveRead) {
+    recrusiveRead = typeof recrusiveRead === 'boolean' ? recrusiveRead : true;
     if (typeof onSuccess === 'undefined') onSuccess = function(writenFilePath) {};
     if (typeof onFail === 'undefined') onFail = function(err) {};
 
-    this.readFilesListPromise()
+    this.readFilesListPromise(recrusiveRead)
       .then(this.writeJsonFilePromise)
       .then(onSuccess)
       .catch(onFail);
