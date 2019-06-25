@@ -9,7 +9,7 @@ class TemplateEngine {
       if (typeof viewData[param] === 'object') {
         for (let paramPropName in viewData[param]) {
           viewTemplate = viewTemplate.replace(
-            new RegExp(`{{ ${param}.${paramPorpName} }}`, 'g'),
+            new RegExp(`{{ ${param}.${paramPropName} }}`, 'g'),
             viewData[param][paramPropName]
           );
         }
