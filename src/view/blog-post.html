@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>{{ title }} - {{ siteTitle }}</title>
+    <title>{{ attributes.title }} - {{ siteTitle }}</title>
     <meta name="description" content="Simplest Blog in Nodejs">
     <meta name="author" content="Guillermo Pages">
     <link rel="stylesheet" href="css/prism.css">
@@ -10,7 +10,7 @@
 
   <body>
     <a href="/"><h1>{{ siteTitle }}</h1></a>
-    <h2>{{ title }}</h2>
-    {{ content }}
+    <h2>{{ attributes.title }}</h2>
+    {{ body }}
   </body>
 </html>

@@ -1,4 +1,6 @@
-# My Blog Post
+---
+title: My BlogPost
+---
 Ain't it amazing?
 
 ## Code

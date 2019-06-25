@@ -1,5 +1,6 @@
 import fs from 'fs';
 import marked from 'marked';
+import fm from 'front-matter';
 import Prism from 'prismjs';
 import HtmlTemplateController from './HtmlTemplateController';
 
@@ -15,14 +16,14 @@ class BlogController extends HtmlTemplateController {
     const filepath = `${mdBlogPostsDir}/${postSlug}.md`
     return new Promise(function(resolve, reject) {
       fs.readFile(filepath, 'utf-8', function(err, fileContents) {
-        (err && reject(err)) || resolve({
-          title: postSlug,
-          content: marked(fileContents, {
-            highlight: function(code, lang) {
-              return Prism.highlight(code, Prism.languages[lang], lang);
-            },
-          }),
+        if (err) return reject(err);
+        const data = fm(fileContents);
+        data.body = marked(data.body, {
+          highlight: function(code, lang) {
+            return Prism.highlight(code, Prism.languages[lang], lang);
+          },
         });
+        return resolve(data);
       });
     })
   };
