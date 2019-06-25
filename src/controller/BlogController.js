@@ -31,9 +31,23 @@ class BlogController extends HtmlTemplateController {
   };
 
   homeAction({ posts }) {
-     return this.loadViewTemplate({title:'Home', posts})
-       .then(this.hydrateView)
-       .catch(this.handleError);
+    const postsDataPormises = posts.map((function (postSlug) {
+      return this.loadMarkdown(postSlug);
+    }).bind(this));
+    return Promise.all(postsDataPormises).then((function (postsData) {
+      const bodyPreviewLength = this.config.bodyPreviewLength || 70;
+      const posts = postsData.map(postData => {
+        postData.body = postData.body.substring(0, bodyPreviewLength);
+        return postData;
+      });
+      const data = {
+        title: 'Home',
+        posts,
+      };
+      return this.loadViewTemplate(data);
+    }).bind(this))
+      .then(this.hydrateView)
+      .catch(this.handleError);
   }
 
   postAction({ postSlug }) {

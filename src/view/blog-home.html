@@ -12,7 +12,7 @@
     <h1>{{ siteTitle }}</h1>
     <ul>
       {{posts as post
-      <li><a href="/{{ post }}">{{ post }}</a></li>
+      <li><a href="/{{ post.attributes.slug }}">{{ post.attributes.title }}</a><div class="post-preview">{{ post.body }}</div></li>
       posts}}
     </ul>
   </body>
