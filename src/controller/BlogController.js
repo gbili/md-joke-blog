@@ -18,6 +18,8 @@ class BlogController extends HtmlTemplateController {
       fs.readFile(filepath, 'utf-8', function(err, fileContents) {
         if (err) return reject(err);
         const data = fm(fileContents);
+        if (typeof data.attributes === 'undefined') data.attributes = {};
+        data.attributes.slug = postSlug;
         data.body = marked(data.body, {
           highlight: function(code, lang) {
             return Prism.highlight(code, Prism.languages[lang], lang);
