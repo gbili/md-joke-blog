@@ -11,6 +11,9 @@ const validPostSlugList = postList.map(fileName => fileName.split('.').shift());
 const relativeStaticFileList = staticFileList.map(fullPath => fullPath.split(resolve(dir.staticFilesDir)).pop());
 
 const config = {
+  viewData: {
+    siteTitle: 'Guillermo.at',
+  },
   ...dir,
   routes: [
     // post route

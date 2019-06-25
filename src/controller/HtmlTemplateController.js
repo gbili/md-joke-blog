@@ -30,6 +30,8 @@ class HtmlTemplateController extends BaseController {
   }
 
   hydrateView({viewTemplate, viewData}) {
+    const configViewData = this.config.viewData || {};
+    viewData = {...configViewData, ...viewData};
     const hydratedView = TemplateEngine.hydrate(viewTemplate, viewData);
     this.response.code = 200;
     this.response.headers = {'content-type': 'text/html; charset=utf-8'};

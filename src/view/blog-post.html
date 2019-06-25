@@ -2,13 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>{{ title }}</title>
+    <title>{{ title }} - {{ siteTitle }}</title>
     <meta name="description" content="Simplest Blog in Nodejs">
     <meta name="author" content="Guillermo Pages">
     <link rel="stylesheet" href="css/prism.css">
   </head>
 
   <body>
-      {{ content }}
+    <a href="/"><h1>{{ siteTitle }}</h1></a>
+    <h2>{{ title }}</h2>
+    {{ content }}
   </body>
 </html>
