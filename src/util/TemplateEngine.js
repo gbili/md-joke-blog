@@ -6,10 +6,19 @@ class TemplateEngine {
 
   static replaceSimple(viewTemplate, viewData) {
     for (let param in viewData) {
-      viewTemplate = viewTemplate.replace(
-        new RegExp(`{{ ${param} }}`, 'g'),
-        viewData[param]
-      );
+      if (typeof viewData[param] === 'object') {
+        for (let paramPropName in viewData[param]) {
+          viewTemplate = viewTemplate.replace(
+            new RegExp(`{{ ${param}.${paramPorpName} }}`, 'g'),
+            viewData[param][paramPropName]
+          );
+        }
+      } else {
+        viewTemplate = viewTemplate.replace(
+          new RegExp(`{{ ${param} }}`, 'g'),
+          viewData[param]
+        );
+      }
     }
     return viewTemplate;
   }
