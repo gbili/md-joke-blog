@@ -46,7 +46,6 @@ class TemplateEngine {
   static replaceArray(viewTemplate, viewData) {
     let r = new RegExp('{{(\\w+(?:\\.\\w+)*) as (\\w+)(.+)\\1}}', 'sg');
     let match = r.exec(viewTemplate);
-    console.log(match);
     if (match) {
       let tpl = match[0];
       let outerRef = match[1];
