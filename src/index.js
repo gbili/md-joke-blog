@@ -3,16 +3,7 @@ import fs from 'fs';
 import BlogPostRoute from './route/BlogPostRoute';
 import BlogController from './controller/BlogController';
 import Router from './route/Router.js';
-
-let config = null;
-try {
-  const userCustomConfigPath = `${__dirname}/../../../md-joke-blog.config.js`;
-  config = require(userCustomConfigPath).default
-} catch (err) {
-  console.log('You can customize the config by creating a md-joke-blog.config.js in your repo');
-  config = require('../config-dist/global').default;
-  console.log('Using default config...');
-}
+import config from '../config-dist/global';
 
 const port = process.env.port || 1337;
 

@@ -4,7 +4,7 @@ import BaseRoute from './BaseRoute'
 class BlogPostRoute extends BaseRoute {
   constructor(path, request, params) {
     super(path, request, params);
-    ({ validPostSlugList: this.validPostSlugList } = params);
+    this.validPostSlugList = params.validPostSlugListGetter();
   }
 
   getController(config) {

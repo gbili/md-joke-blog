@@ -1,11 +1,11 @@
 import DirFilesToJson from './DirFilesToJson';
-import config from '../../config-dist/dir';
+import config from '../../config-dist/global';
 
 const recursive = true;
 
 const blogPostsJson = new DirFilesToJson({
   sourceDir: config.mdBlogPostsDir,
-  destFile: `${config.configDir}/post-list.json`,
+  destFile: `${config.compiledUserContentDir}/post-list.json`,
 });
 
 blogPostsJson.generate(
@@ -16,7 +16,7 @@ blogPostsJson.generate(
 
 const staticFilesJson = new DirFilesToJson({
   sourceDir: config.staticFilesDir,
-  destFile: `${config.configDir}/static-file-list.json`,
+  destFile: `${config.compiledUserContentDir}/static-file-list.json`,
 });
 
 staticFilesJson.generate(

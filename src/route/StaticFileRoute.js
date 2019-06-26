@@ -4,7 +4,7 @@ import StaticFileController from '../controller/StaticFileController';
 class StaticFileRoute extends BaseRoute {
   constructor(path, request, params) {
     super(path, request, params);
-    ({ staticFilePaths:this.staticFilePaths } = params);
+    this.staticFilePaths = params.staticFilePathsGetter();
   }
 
   getController(config) {
