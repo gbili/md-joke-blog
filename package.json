@@ -4,13 +4,14 @@
   "description": "Simple Nodejs ES6 (Babel), Mocha/Chai Blog",
   "main": "build/index.js",
   "scripts": {
-    "clean": "rm -fr ./build/*",
-    "prebuild": "npm run clean",
-    "makeconfig": "rm -f ./config/post-list.json && rm -f ./config/static-file-list.json && babel-node ./src/config/generate.js && babel ./config/global.js --out-file ./config/global-built.js",
-    "build": "npm run makeconfig && babel -d ./build ./src",
     "test": "mocha --require @babel/register --recursive",
-    "develop": "npm run makeconfig && nodemon --exec babel-node ./src/index.js",
-    "serve": "node ./build/index.js"
+    "config:prebuild": "rm -fr ./config-dist",
+    "config:build": "npm run config:prebuild && babel config --out-dir config-dist",
+    "clean": "rm -fr ./dist/*",
+    "prebuild": "npm run clean && npm run config:build",
+    "build": "babel src --out-dir dist",
+    "postbuild": "node ./dist/config/generate.js && cp -fR ./src/view ./dist/",
+    "serve": "NODE_ENV=production node ./dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -32,18 +33,19 @@
   },
   "homepage": "https://github.com/gbili/nodeblog#readme",
   "devDependencies": {
-    "@babel/cli": "7.4.4",
-    "@babel/core": "7.4.5",
-    "@babel/node": "7.4.5",
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/plugin-transform-runtime": "^7.4.4",
     "@babel/preset-env": "7.4.5",
-    "@babel/register": "7.4.4",
+    "@babel/register": "^7.4.4",
+    "@babel/runtime": "^7.4.5",
     "chai": "4.2.0",
     "front-matter": "^3.0.2",
     "github-markdown-css": "3.0.1",
     "marked": "0.6.2",
     "mime-types": "2.1.24",
     "mocha": "6.1.4",
-    "nodemon": "1.19.1",
+    "nodemon": "^1.19.1",
     "prismjs": "1.16.0"
   },
   "dependencies": {
