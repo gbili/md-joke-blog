@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/gbili/nodeblog.git"
+    "url": "git+ssh://git@github.com/gbili/md-toy-blog.git"
   },
   "keywords": [
     "nodejs",
@@ -30,9 +30,9 @@
   "author": "Guillermo Pages <mail@guillermo.at> (https://guillermo.at)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gbili/nodeblog/issues"
+    "url": "https://github.com/gbili/md-toy-blog/issues"
   },
-  "homepage": "https://github.com/gbili/nodeblog#readme",
+  "homepage": "https://github.com/gbili/md-toy-blog#readme",
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
