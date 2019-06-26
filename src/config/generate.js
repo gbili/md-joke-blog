@@ -1,5 +1,5 @@
 import DirFilesToJson from './DirFilesToJson';
-import config from '../../config/dir';
+import config from '../../config-dist/dir';
 
 const recursive = true;
 
