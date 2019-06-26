@@ -16,7 +16,7 @@ describe(`BlogPostRoute`, function() {
   };
 
   const route = new BlogPostRoute(path, null, {
-      validPostSlugList: [ existingPostName ],
+      validPostSlugListGetter: () => [ existingPostName ],
     }
   );
 
