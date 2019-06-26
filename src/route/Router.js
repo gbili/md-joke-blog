@@ -1,9 +1,9 @@
 import _p from 'primap';
-import config from '../../config/global-built'
 
 class Router {
-  constructor() {
+  constructor(config) {
     _p.bind(this);
+    _p().config = config;
     _p().instantiateRoutes = function(request, routesConfig) {
       return routesConfig.map(({path, route, params}) => {
         return new (route)(path, request, params);
@@ -11,8 +11,9 @@ class Router {
     };
   }
 
-  resolve(request, routesConfig) {
-    const routes = _p().instantiateRoutes(request, routesConfig);
+  resolve(request) {
+
+    const routes = _p().instantiateRoutes(request, _p().config.routes);
 
     const capableRoutes = routes.filter(route => route.canResolve(request));
 
@@ -22,7 +23,7 @@ class Router {
 
     const route = capableRoutes.shift();
 
-    const controller = route.getController(config);
+    const controller = route.getController(_p().config);
     const disparams = {
       action: route.getAction(),
       params: route.getParams(),
