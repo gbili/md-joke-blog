@@ -1,8 +1,8 @@
 {
-  "name": "nodejs-simplest-blog",
-  "version": "1.0.0",
-  "description": "Simple Nodejs ES6 (Babel), Mocha/Chai Blog",
-  "main": "build/index.js",
+  "name": "md-toy-blog",
+  "version": "0.0.0-development",
+  "description": "Markdown Toy Blog, Nodejs, Mocha/Chai",
+  "main": "dist/index.js",
   "scripts": {
     "test": "mocha --require @babel/register --recursive",
     "config:prebuild": "rm -fr ./config-dist",
@@ -10,8 +10,9 @@
     "clean": "rm -fr ./dist/*",
     "prebuild": "npm run clean && npm run config:build",
     "build": "babel src --out-dir dist",
-    "postbuild": "node ./dist/config/generate.js && cp -fR ./src/view ./dist/",
-    "serve": "NODE_ENV=production node ./dist/index.js"
+    "postbuild": "rm -fr ./compiled_user_content/* && node ./dist/config/generate.js && cp -fR ./src/view ./dist/",
+    "serve": "NODE_ENV=production node ./dist/index.js",
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
@@ -19,12 +20,12 @@
   },
   "keywords": [
     "nodejs",
-    "nodemon",
+    "blog",
+    "markdown",
+    "toy",
     "mocha",
     "chai",
-    "es6",
-    "babel",
-    "skeleton"
+    "es6"
   ],
   "author": "Guillermo Pages <mail@guillermo.at> (https://guillermo.at)",
   "license": "MIT",
@@ -46,7 +47,8 @@
     "mime-types": "2.1.24",
     "mocha": "6.1.4",
     "nodemon": "^1.19.1",
-    "prismjs": "1.16.0"
+    "prismjs": "1.16.0",
+    "semantic-release": "^15.13.18"
   },
   "dependencies": {
     "primap": "1.0.0",
