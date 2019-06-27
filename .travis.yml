@@ -10,7 +10,7 @@ jobs:
         - npm t
     - stage: release
       env:
-        - NODE_ENV=production
+        - NODE_ENV=development
       node_js: lts/*
       script:
         - npm run semantic-release
