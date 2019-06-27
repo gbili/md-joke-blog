@@ -19,16 +19,14 @@ var _index = _interopRequireDefault(require("prismjs/components/index"));
 
 var _HtmlTemplateController = _interopRequireDefault(require("./HtmlTemplateController"));
 
+(0, _index.default)();
+
 class BlogController extends _HtmlTemplateController.default {
   constructor(config) {
     super(config);
   }
 
   loadMarkdown(postSlug, isHome) {
-    const fixNoLanguageBugFallbackToJS = function (body) {
-      return body.replace(/```\n([^`]+)```([^\w])/sg, "```javascript\n$1```$2");
-    };
-
     const filepath = `${this.config.mdBlogPostsDir}/${postSlug}.md`;
     return new Promise(function (resolve, reject) {
       _fs.default.readFile(filepath, 'utf-8', function (err, fileContents) {
@@ -36,15 +34,27 @@ class BlogController extends _HtmlTemplateController.default {
         const data = (0, _frontMatter.default)(fileContents);
         if (typeof data.attributes === 'undefined') data.attributes = {};
         data.attributes.slug = postSlug;
+
+        const fixNoLanguageBugFallbackToJS = function (body) {
+          return body.replace(/```\n([\s\S]*?\n)```/sg, "```xml\n$1```");
+        };
+
         data.body = fixNoLanguageBugFallbackToJS(data.body);
 
         if (isHome) {
-          data.body = typeof data.attributes.description !== 'undefined' ? data.attributes.description : data.body.replace(/(```[^`]+```)([^\w])/sg, "$2");
+          const useDescriptionAttrOrStripOutCodeBlocksAndUseFirstLine = function (data) {
+            let ret = typeof data.attributes.description !== 'undefined' ? data.attributes.description : data.body.replace(/(```[a-z]*\n[\s\S]*?\n```)/sg, "");
+            ret = ret.match(/([^\n]+)\n/g);
+            return ret[0] || "You'll need to click to know more";
+          };
+
+          data.body = useDescriptionAttrOrStripOutCodeBlocksAndUseFirstLine(data);
         }
 
         data.body = (0, _marked.default)(data.body, {
           highlight: function (code, lang) {
-            return _prismjs.default.highlight(code, _prismjs.default.languages[lang], lang);
+            const language = _prismjs.default.languages[lang] || _prismjs.default.languages.markup;
+            return _prismjs.default.highlight(code, language);
           }
         });
         return resolve(data);

@@ -6,7 +6,7 @@ import NotFoundRoute from '../dist/route/NotFoundRoute';
 
 let userConfig = {};
 try {
-  const userCustomConfigPath = `${__dirname}/../../../md-joke-blog.config.js`;
+  const userCustomConfigPath = `${__dirname}/../../../md-toy-blog.config.js`;
   userConfig = require(userCustomConfigPath).default
 } catch (err) {
   console.log('You can customize the config by creating a md-joke-blog.config.js in your repo');
@@ -74,7 +74,7 @@ config.routes = [
 
 if (process.env.MTB_ENV === 'production') {
   config.mdBlogPostsDir = userConfig.mdBlogPostsDir || `${__dirname}/../../../content`
-  config.staticFilesDir = userConfig.staticFilesDir || `${__dirname}/../../../static`
+  config.staticFilesDir = userConfig.staticFilesDir || config.staticFilesDir;
   config.viewData = userConfig.viewData || config.viewData;
   config.routes = userConfig.routes || config.routes;
 }

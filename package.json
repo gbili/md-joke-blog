@@ -16,8 +16,8 @@
     "semantic-release": "semantic-release"
   },
   "bin": {
-      "md-toy-blog:make": "dist/config/generate.js",
-      "md-toy-blog:serve": "dist/index.js"
+    "md-toy-blog:make": "dist/config/generate.js",
+    "md-toy-blog:serve": "dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -55,6 +55,7 @@
     "github-markdown-css": "^3.0.1",
     "marked": "^0.6.2",
     "mime-types": "^2.1.24",
+    "node-prismjs": "^0.1.2",
     "primap": "1.0.0",
     "prismjs": "^1.16.0",
     "recursive-readdir": "^2.2.2"
