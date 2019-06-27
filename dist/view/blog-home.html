@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ siteTitle }}</title>
+    <meta name="description" content="Simplest Blog in Nodejs">
+    <meta name="author" content="Guillermo Pages">
+    <link rel="stylesheet" href="css/styles.css?v=1.0">
+  </head>
+
+  <body>
+    <h1>{{ siteTitle }}</h1>
+    <ul>
+      {{posts as post
+      <li><a href="/{{ post.attributes.slug }}">{{ post.attributes.title }}</a><div class="post-preview">{{ post.body }}</div></li>
+      posts}}
+    </ul>
+  </body>
+</html>
