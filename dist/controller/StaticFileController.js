@@ -21,8 +21,7 @@ class StaticFileController extends _BaseController.default {
   indexAction({
     filepath
   }) {
-    const staticFilesDir = typeof this.config.staticFilesDir !== 'undefined' ? this.config.staticFilesDir : `${__dirname}/../../static`;
-    filepath = `${staticFilesDir}/${filepath}`;
+    filepath = `${this.config.staticFilesDir}/${filepath}`;
     return new Promise(function (resolve, reject) {
       _fs.default.readFile(filepath, 'utf-8', function (err, rawContents) {
         if (err) return reject(err);

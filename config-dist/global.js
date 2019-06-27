@@ -81,7 +81,7 @@ config.routes = [{
   params: {}
 }];
 
-if (process.env.MJB_ENV === 'production') {
+if (process.env.MTB_ENV === 'production') {
   config.mdBlogPostsDir = userConfig.mdBlogPostsDir || `${__dirname}/../../../content`;
   config.staticFilesDir = userConfig.staticFilesDir || `${__dirname}/../../../static`;
   config.viewData = userConfig.viewData || config.viewData;
