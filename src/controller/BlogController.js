@@ -10,10 +10,7 @@ class BlogController extends HtmlTemplateController {
   }
 
   loadMarkdown(postSlug) {
-    const mdBlogPostsDir = (typeof this.config.mdBlogPostsDir !== 'undefined')
-      ? this.config.mdBlogPostsDir
-      : `${__dirname}/../../content`;
-    const filepath = `${mdBlogPostsDir}/${postSlug}.md`
+    const filepath = `${this.config.mdBlogPostsDir}/${postSlug}.md`
     return new Promise(function(resolve, reject) {
       fs.readFile(filepath, 'utf-8', function(err, fileContents) {
         if (err) return reject(err);
