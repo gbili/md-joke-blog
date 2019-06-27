@@ -1,7 +1,5 @@
 import http from 'http';
 import fs from 'fs';
-import BlogPostRoute from './route/BlogPostRoute';
-import BlogController from './controller/BlogController';
 import Router from './route/Router.js';
 import config from '../config-dist/global';
 
@@ -22,3 +20,6 @@ const app = http.createServer(async function (req, res) {
 app.listen(port);
 
 console.log(`Listening on : http://localhost:${port}`);
+
+export default app;
+export { Router, config };
