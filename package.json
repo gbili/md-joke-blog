@@ -8,11 +8,16 @@
     "config:prebuild": "rm -fr ./config-dist",
     "config:build": "npm run config:prebuild && babel config --out-dir config-dist",
     "clean": "rm -fr ./dist/*",
+    "makebin": "echo '#!/usr/bin/env node' | cat - ./dist/config/generate.js  > temp && mv temp ./dist/config/generate.js",
     "prebuild": "npm run clean && npm run config:build",
     "build": "babel src --out-dir dist",
-    "postbuild": "rm -fr ./compiled_user_content/* && node ./dist/config/generate.js && cp -fR ./src/view ./dist/",
+    "postbuild": "rm -fr ./compiled_user_content/* && node ./dist/config/generate.js && npm run makebin && cp -fR ./src/view ./dist/",
     "serve": "NODE_ENV=production node ./dist/index.js",
     "semantic-release": "semantic-release"
+  },
+  "bin": {
+      "md-toy-blog:make": "dist/config/generate.js",
+      "md-toy-blog:serve": "dist/index.js"
   },
   "repository": {
     "type": "git",
