@@ -1,11 +1,10 @@
 import fs from 'fs';
-import marked from 'marked';
 import fm from 'front-matter';
-import Prism from 'prismjs';
-import loadLanguages from 'prismjs/components/index';
+import showdown from 'showdown';
+import showdownHighlight from 'showdown-highlight';
 import HtmlTemplateController from './HtmlTemplateController';
 
-loadLanguages();
+// loadLanguages();
 
 class BlogController extends HtmlTemplateController {
   constructor(config) {
@@ -24,7 +23,7 @@ class BlogController extends HtmlTemplateController {
         data.attributes.slug = postSlug;
 
         const fixNoLanguageBugFallbackToJS = function (body) {
-          return body.replace(/```\n([\s\S]*?\n)```/sg, "```markup\n$1```");
+          return body.replace(/```\n([\s\S]*?\n)```/sg, "```plaintext\n$1```");
         };
         data.body = fixNoLanguageBugFallbackToJS(data.body);
 
@@ -39,12 +38,10 @@ class BlogController extends HtmlTemplateController {
           data.body = useDescriptionAttrOrStripOutCodeBlocksAndUseFirstLine(data);
         }
 
-        data.body = marked(data.body, {
-          highlight: function(code, lang) {
-            const language = Prism.languages[lang] || Prism.languages.markup;
-            return Prism.highlight(code, language);
-          },
+        const converter = new showdown.Converter({
+          extensions: [showdownHighlight]
         });
+        data.body = converter.makeHtml(data.body);
         return resolve(data);
       });
     })

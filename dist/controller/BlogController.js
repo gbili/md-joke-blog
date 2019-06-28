@@ -9,18 +9,19 @@ exports.default = void 0;
 
 var _fs = _interopRequireDefault(require("fs"));
 
-var _marked = _interopRequireDefault(require("marked"));
+var _showdown = _interopRequireDefault(require("showdown"));
 
 var _frontMatter = _interopRequireDefault(require("front-matter"));
 
-var _prismjs = _interopRequireDefault(require("prismjs"));
-
-var _index = _interopRequireDefault(require("prismjs/components/index"));
+var _showdownHighlight = _interopRequireDefault(require("showdown-highlight"));
 
 var _HtmlTemplateController = _interopRequireDefault(require("./HtmlTemplateController"));
 
-(0, _index.default)();
-
+// import marked from 'marked';
+// import Prism from 'prismjs';
+// import loadLanguages from 'prismjs/components/index';
+// import hljs from 'highlight.js';
+// loadLanguages();
 class BlogController extends _HtmlTemplateController.default {
   constructor(config) {
     super(config);
@@ -36,7 +37,7 @@ class BlogController extends _HtmlTemplateController.default {
         data.attributes.slug = postSlug;
 
         const fixNoLanguageBugFallbackToJS = function (body) {
-          return body.replace(/```\n([\s\S]*?\n)```/sg, "```xml\n$1```");
+          return body.replace(/```\n([\s\S]*?\n)```/sg, "```plaintext\n$1```");
         };
 
         data.body = fixNoLanguageBugFallbackToJS(data.body);
@@ -51,12 +52,19 @@ class BlogController extends _HtmlTemplateController.default {
           data.body = useDescriptionAttrOrStripOutCodeBlocksAndUseFirstLine(data);
         }
 
-        data.body = (0, _marked.default)(data.body, {
-          highlight: function (code, lang) {
-            const language = _prismjs.default.languages[lang] || _prismjs.default.languages.markup;
-            return _prismjs.default.highlight(code, language);
-          }
+        const converter = new _showdown.default.Converter({
+          extensions: [_showdownHighlight.default]
         });
+        const html = converter.makeHtml(data.body);
+        data.body = html; //let lang = require(`highlight.js/lib/languages/${lang}`);
+        //hljs.registerLanguage(lang, javascript);
+        // data.body = marked(data.body, {
+        //   highlight: function(code, lang) {
+        //     const language = Prism.languages[lang] || Prism.languages.markup;
+        //     return Prism.highlight(code, language);
+        //   },
+        // });
+
         return resolve(data);
       });
     });
