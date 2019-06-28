@@ -93,8 +93,8 @@ if (process.env.MTB_ENV === 'production') {
   config.staticFilesDir = userConfig.staticFilesDir || config.staticFilesDir;
   config.viewData = userConfig.viewData || config.viewData;
   config.routes = userConfig.routes || config.routes;
-  config.bodyPreviewLength = userconfig.bodyPreviewLength || config.bodyPreviewLength;
-  config.missingRefValueReplacement = userconfig.missingRefValueReplacement || config.missingRefValueReplacement;
+  config.bodyPreviewLength = userConfig.bodyPreviewLength || config.bodyPreviewLength;
+  config.missingRefValueReplacement = userConfig.missingRefValueReplacement || config.missingRefValueReplacement;
 }
 
 var _default = config;
