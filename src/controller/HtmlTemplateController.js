@@ -31,9 +31,9 @@ class HtmlTemplateController extends BaseController {
 
   hydrateView({viewTemplate, viewData}) {
     const configViewData = this.config.viewData || {};
-    const missingRefValueReplacement = this.config.missingRefValueReplacement || (ref => `Missing ref: ${ref}`);
     viewData = {...configViewData, ...viewData};
-    const hydratedView = TemplateEngine.hydrate(viewTemplate, viewData, missingRefValueReplacement);
+    const te = new TemplateEngine(this.config.missingRefValueReplacement);
+    const hydratedView = te.hydrate(viewTemplate, viewData);
     this.response.code = 200;
     this.response.headers = {'content-type': 'text/html; charset=utf-8'};
     this.response.body = hydratedView;
