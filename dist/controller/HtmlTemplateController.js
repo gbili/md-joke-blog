@@ -44,11 +44,14 @@ class HtmlTemplateController extends _BaseController.default {
     viewData
   }) {
     const configViewData = this.config.viewData || {};
+
+    const missingRefValueReplacement = this.config.missingRefValueReplacement || (ref => `Missing ref: ${ref}`);
+
     viewData = { ...configViewData,
       ...viewData
     };
 
-    const hydratedView = _TemplateEngine.default.hydrate(viewTemplate, viewData);
+    const hydratedView = _TemplateEngine.default.hydrate(viewTemplate, viewData, missingRefValueReplacement);
 
     this.response.code = 200;
     this.response.headers = {

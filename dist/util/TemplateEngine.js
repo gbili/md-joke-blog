@@ -6,9 +6,9 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 class TemplateEngine {
-  static hydrate(viewTemplate, viewData) {
-    viewTemplate = TemplateEngine.replaceArray(viewTemplate, viewData);
-    return TemplateEngine.replace(viewTemplate, viewData);
+  static hydrate(viewTemplate, viewData, missingRefCallback) {
+    viewTemplate = TemplateEngine.replaceArray(viewTemplate, viewData, missingRefCallback);
+    return TemplateEngine.replace(viewTemplate, viewData, missingRefCallback);
   }
 
   static getRefList(viewTemplate) {
@@ -23,14 +23,15 @@ class TemplateEngine {
     return dotNotation.split('.');
   }
 
-  static getReferencedValue(data, ref) {
+  static getReferencedValue(data, ref, missingRefCallback) {
     const nestedPath = TemplateEngine.getNestedPath(ref);
     let value = { ...data
     };
 
     for (let paramName of nestedPath) {
       if (!value.hasOwnProperty(paramName)) {
-        throw new TypeError('Trying to access a non existing param: ' + ref);
+        if (!missingRefCallback) throw new TypeError('Trying to access a non existing param: ' + ref);
+        return missingRefCallback(ref);
       }
 
       value = value[paramName];
@@ -39,28 +40,28 @@ class TemplateEngine {
     return value;
   }
 
-  static replaceRef(viewTemplate, viewData, ref) {
-    return viewTemplate.replace(new RegExp(`{{ ${ref} }}`, 'g'), TemplateEngine.getReferencedValue(viewData, ref));
+  static replaceRef(viewTemplate, viewData, ref, missingRefCallback) {
+    return viewTemplate.replace(new RegExp(`{{ ${ref} }}`, 'g'), TemplateEngine.getReferencedValue(viewData, ref, missingRefCallback));
   }
 
-  static replace(viewTemplate, viewData) {
+  static replace(viewTemplate, viewData, missingRefCallback) {
     const references = TemplateEngine.getRefList(viewTemplate);
 
     for (let ref of references) {
-      viewTemplate = TemplateEngine.replaceRef(viewTemplate, viewData, ref);
+      viewTemplate = TemplateEngine.replaceRef(viewTemplate, viewData, ref, missingRefCallback);
     }
 
     return viewTemplate;
   }
 
-  static replaceArray(viewTemplate, viewData) {
+  static replaceArray(viewTemplate, viewData, missingRefCallback) {
     let r = new RegExp('{{(\\w+(?:\\.\\w+)*) as (\\w+)(.+)\\1}}', 'sg');
     let match = r.exec(viewTemplate);
 
     if (match) {
       let tpl = match[0];
       let outerRef = match[1];
-      let subDatas = TemplateEngine.getReferencedValue(viewData, outerRef);
+      let subDatas = TemplateEngine.getReferencedValue(viewData, outerRef, missingRefCallback);
       let innerRef = match[2];
       let subTpl = match[3];
       let subTplWithoutInnerRefPrefix = subTpl.replace(new RegExp(`{{ ${innerRef}\\.`, 'g'), '{{ ');

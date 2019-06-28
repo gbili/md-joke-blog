@@ -6,10 +6,12 @@
     <meta name="description" content="Simplest Blog in Nodejs">
     <meta name="author" content="Guillermo Pages">
     <link rel="stylesheet" href="css/styles.css?v=1.0">
+    <link rel="stylesheet" href="css/highlight-js-github.css">
   </head>
 
   <body>
     <h1>{{ siteTitle }}</h1>
+    <h2>{{ missingRef }}, {{ hey.missingRef }}, {{ hey.hoy.missingRef }}</h2>
     <ul>
       {{posts as post
       <li><a href="/{{ post.attributes.slug }}">{{ post.attributes.title }}</a><div class="post-preview">{{ post.body }}</div></li>

@@ -9,18 +9,14 @@ exports.default = void 0;
 
 var _fs = _interopRequireDefault(require("fs"));
 
-var _showdown = _interopRequireDefault(require("showdown"));
-
 var _frontMatter = _interopRequireDefault(require("front-matter"));
+
+var _showdown = _interopRequireDefault(require("showdown"));
 
 var _showdownHighlight = _interopRequireDefault(require("showdown-highlight"));
 
 var _HtmlTemplateController = _interopRequireDefault(require("./HtmlTemplateController"));
 
-// import marked from 'marked';
-// import Prism from 'prismjs';
-// import loadLanguages from 'prismjs/components/index';
-// import hljs from 'highlight.js';
 // loadLanguages();
 class BlogController extends _HtmlTemplateController.default {
   constructor(config) {
@@ -55,16 +51,7 @@ class BlogController extends _HtmlTemplateController.default {
         const converter = new _showdown.default.Converter({
           extensions: [_showdownHighlight.default]
         });
-        const html = converter.makeHtml(data.body);
-        data.body = html; //let lang = require(`highlight.js/lib/languages/${lang}`);
-        //hljs.registerLanguage(lang, javascript);
-        // data.body = marked(data.body, {
-        //   highlight: function(code, lang) {
-        //     const language = Prism.languages[lang] || Prism.languages.markup;
-        //     return Prism.highlight(code, language);
-        //   },
-        // });
-
+        data.body = converter.makeHtml(data.body);
         return resolve(data);
       });
     });
