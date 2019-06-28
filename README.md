@@ -23,3 +23,26 @@ A package that will let serve your Markdown files as blog posts. These posts hav
    MTB_ENV=production node index.js
    ```
 
+## Allowed refinements:
+You can create a file named `md-toy-blog.config.js`, and export customizations, such as:
+- Change the blog title
+  ```
+  module.exports.default = {
+    siteTitle: 'My Ridiculous Blog'
+  };
+  ```
+- Using your own views
+- Using your own static files (css etc.)
+- Creating your own routes
+- Chainging the home posts excerpt length
+- Or what to replace template references missing in data
+
+Have a look at `node_modules/md-toy-blog/config/global.js` to see which ones you can alter. Here is how config is constructed, and `userConfig` contains the exports of `md-toy-blog.config.js`.
+```javascript
+config.mdBlogPostsDir = userConfig.mdBlogPostsDir || `${__dirname}/../../../content`
+config.staticFilesDir = userConfig.staticFilesDir || config.staticFilesDir;
+config.viewData = userConfig.viewData || config.viewData;
+config.routes = userConfig.routes || config.routes;
+config.bodyPreviewLength = userConfig.bodyPreviewLength || config.bodyPreviewLength;
+config.missingRefValueReplacement = userConfig.missingRefValueReplacement || config.missingRefValueReplacement;
+```
