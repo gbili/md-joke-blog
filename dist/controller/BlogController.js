@@ -23,12 +23,12 @@ class BlogController extends _HtmlTemplateController.default {
     super(config);
   }
 
-  loadMarkdown(postSlug, isHome) {
+  loadMarkdown(postSlug, preHtmlCallback) {
     const filepath = `${this.config.mdBlogPostsDir}/${postSlug}.md`;
     return new Promise(function (resolve, reject) {
       _fs.default.readFile(filepath, 'utf-8', function (err, fileContents) {
         if (err) return reject(err);
-        const data = (0, _frontMatter.default)(fileContents);
+        let data = (0, _frontMatter.default)(fileContents);
         if (typeof data.attributes === 'undefined') data.attributes = {};
         data.attributes.slug = postSlug;
 
@@ -37,17 +37,7 @@ class BlogController extends _HtmlTemplateController.default {
         };
 
         data.body = fixNoLanguageBugFallbackToJS(data.body);
-
-        if (isHome) {
-          const useDescriptionAttrOrStripOutCodeBlocksAndUseFirstLine = function (data) {
-            let ret = typeof data.attributes.description !== 'undefined' ? data.attributes.description : data.body.replace(/(```[a-z]*\n[\s\S]*?\n```)/sg, "");
-            ret = ret.match(/([^\n]+)\n/g);
-            return ret[0] || "You'll need to click to know more";
-          };
-
-          data.body = useDescriptionAttrOrStripOutCodeBlocksAndUseFirstLine(data);
-        }
-
+        if (preHtmlCallback) data = preHtmlCallback(data);
         const converter = new _showdown.default.Converter({
           extensions: [_showdownHighlight.default]
         });
@@ -57,21 +47,27 @@ class BlogController extends _HtmlTemplateController.default {
     });
   }
 
+  getPostPreviewShortener() {
+    const previewLength = this.config.bodyPreviewLength;
+    return function (data) {
+      let preview = typeof data.attributes.description !== 'undefined' ? data.attributes.description : data.body.replace(/(```[a-z]*\n[\s\S]*?\n```)/sg, "");
+      preview = preview.match(/([^\n]+)\n/g);
+      preview = preview[0] || "You'll need to click to know more";
+      data.body = preview.substring(0, previewLength);
+      return data;
+    };
+  }
+
   homeAction({
     posts
   }) {
     const postsDataPormises = posts.map(function (postSlug) {
-      return this.loadMarkdown(postSlug, true);
+      return this.loadMarkdown(postSlug, this.getPostPreviewShortener());
     }.bind(this));
     return Promise.all(postsDataPormises).then(function (postsData) {
-      const bodyPreviewLength = this.config.bodyPreviewLength || 70;
-      const posts = postsData.map(postData => {
-        postData.body = postData.body.substring(0, bodyPreviewLength);
-        return postData;
-      });
       const data = {
         title: 'Home',
-        posts
+        posts: postsData
       };
       return this.loadViewTemplate(data);
     }.bind(this)).then(this.hydrateView).catch(this.handleError);

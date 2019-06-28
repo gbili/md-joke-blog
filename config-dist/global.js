@@ -34,6 +34,13 @@ config.staticFilesDir = `${__dirname}/../static`;
 config.viewData = {
   siteTitle: 'Markdown Joke Blog'
 };
+config.bodyPreviewLength = 70;
+
+config.missingRefValueReplacement = ref => {
+  console.log(`Warning - Missing ref: ${ref}`);
+  return `${ref}`;
+};
+
 config.compiledUserContentDir = userConfig.compiledUserContentDir || `${__dirname}/../compiled_user_content`;
 config.viewsDir = userConfig.viewsDir || `${__dirname}/../dist/view`;
 
@@ -86,6 +93,8 @@ if (process.env.MTB_ENV === 'production') {
   config.staticFilesDir = userConfig.staticFilesDir || config.staticFilesDir;
   config.viewData = userConfig.viewData || config.viewData;
   config.routes = userConfig.routes || config.routes;
+  config.bodyPreviewLength = userconfig.bodyPreviewLength || config.bodyPreviewLength;
+  config.missingRefValueReplacement = userconfig.missingRefValueReplacement || config.missingRefValueReplacement;
 }
 
 var _default = config;
