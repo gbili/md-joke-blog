@@ -8,6 +8,7 @@ jobs:
       node_js: lts/*
       script:
         - npm t
+        - npm run check-coverage
     - stage: release
       env:
         - NODE_ENV=development
