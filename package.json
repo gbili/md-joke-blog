@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "mocha --require @babel/register --recursive",
+    "test:single": "istanbul cover -x test* _mocha -- -R spec --require @babel/register --recursive",
     "config:prebuild": "rm -fr ./config-dist",
     "config:build": "npm run config:prebuild && babel config --out-dir config-dist",
     "clean": "rm -fr ./dist/*",
@@ -46,6 +47,7 @@
   "devDependencies": {
     "chai": "4.2.0",
     "ghooks": "^2.0.4",
+    "istanbul": "^0.4.5",
     "mocha": "6.1.4",
     "nodemon": "^1.19.1",
     "semantic-release": "^15.13.18"
