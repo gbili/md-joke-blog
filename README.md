@@ -1,10 +1,10 @@
 # md-toy-blog: Simplest Whitelist Blog
 
-[travis build](https://img.shields.io/travis/gbili/md-toy-blog.svg?style=flat-square)
-[code coverage](https://img.shields.io/codecov/c/github/gbili/md-toy-blog.svg)
-[version](https://img.shields.io/npm/v/md-toy-blog.svg)
-[downloads](https://img.shields.io/npm/dm/md-toy-blog.svg)
-[license](https://img.shields.io/npm/l/md-toy-blog.svg)
+![travis build](https://img.shields.io/travis/gbili/md-toy-blog.svg?style=flat-square)
+![code coverage](https://img.shields.io/codecov/c/github/gbili/md-toy-blog.svg)
+![version](https://img.shields.io/npm/v/md-toy-blog.svg)
+![downloads](https://img.shields.io/npm/dm/md-toy-blog.svg)
+![license](https://img.shields.io/npm/l/md-toy-blog.svg)
 
 > **Disclaimer**: you can install this, but if you are into blogging, don't. This is a project just intended as a learning adventure.
 
