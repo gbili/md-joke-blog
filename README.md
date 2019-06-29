@@ -1,5 +1,11 @@
 # md-toy-blog: Simplest Whitelist Blog
 
+[travis build](https://img.shields.io/travis/gbili/md-toy-blog.svg?style=flat-square)
+[code coverage](https://img.shields.io/codecov/c/github/gbili/md-toy-blog.svg)
+[version](https://img.shields.io/npm/v/md-toy-blog.svg)
+[downloads](https://img.shields.io/npm/dm/md-toy-blog.svg)
+[license](https://img.shields.io/npm/l/md-toy-blog.svg)
+
 > **Disclaimer**: you can install this, but if you are into blogging, don't. This is a project just intended as a learning adventure.
 
 A package that will let serve your Markdown files as blog posts. These posts have to live in their own git repository (let's call it `my-posts` for illustration purposes). Posts need to be stored inside `my-posts/content`. For example `my-posts/content/hello-world-post.md`. Then it is pretty straight forward:
