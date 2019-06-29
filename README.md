@@ -1,8 +1,8 @@
 # md-toy-blog: Simplest Whitelist Blog
 
-> **Disclaimer**: you can install this, but if you are into blogging, don't. This is a project just intended to as a learning adventure.
+> **Disclaimer**: you can install this, but if you are into blogging, don't. This is a project just intended as a learning adventure.
 
-A package that will let serve your Markdown files as blog posts. These posts have to live in their own git repository (let's call it `my-posts` for illustration purposes). Posts need to be stored inside `my-posts/content`. For example `my-posts/content/hello-world-post.md`. Then it pretty straight forward:
+A package that will let serve your Markdown files as blog posts. These posts have to live in their own git repository (let's call it `my-posts` for illustration purposes). Posts need to be stored inside `my-posts/content`. For example `my-posts/content/hello-world-post.md`. Then it is pretty straight forward:
 
 1. Install `md-toy-blog`
    ```
@@ -28,14 +28,16 @@ You can create a file named `md-toy-blog.config.js`, and export customizations, 
 - Change the blog title
   ```
   module.exports.default = {
-    siteTitle: 'My Ridiculous Blog'
+    viewData: {
+      siteTitle: 'My Ridiculous Blog',
+    },
   };
   ```
-- Using your own views
-- Using your own static files (css etc.)
-- Creating your own routes
-- Chainging the home posts excerpt length
-- Or what to replace template references missing in data
+- Use your own views
+- Use your own static files (css etc.)
+- Create your own routes
+- Change the home posts excerpt length
+- Change the replacement for template references missing in data
 
 Have a look at `node_modules/md-toy-blog/config/global.js` to see which ones you can alter. Here is how config is constructed, and `userConfig` contains the exports of `md-toy-blog.config.js`.
 ```javascript
