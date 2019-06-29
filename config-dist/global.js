@@ -18,12 +18,13 @@ var _StaticFileRoute = _interopRequireDefault(require("../dist/route/StaticFileR
 var _NotFoundRoute = _interopRequireDefault(require("../dist/route/NotFoundRoute"));
 
 let userConfig = {};
+const packageName = 'md-toy-blog';
 
 try {
-  const userCustomConfigPath = `${__dirname}/../../../md-toy-blog.config.js`;
+  const userCustomConfigPath = `${__dirname}/../../../${packageName}.config.js`;
   userConfig = require(userCustomConfigPath).default;
 } catch (err) {
-  console.log('You can customize the config by creating a md-joke-blog.config.js in your repo');
+  console.log(`You can customize the config by creating a ${packageName}.config.js in your repo`);
   console.log('Will be using default config...');
 }
 
