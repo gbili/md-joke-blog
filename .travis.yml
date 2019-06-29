@@ -14,4 +14,5 @@ jobs:
         - NODE_ENV=development
       node_js: lts/*
       script:
+        - npm run report-coverage
         - npm run semantic-release
