@@ -29,7 +29,7 @@ You can create a file named `md-toy-blog.config.js`, and export customizations, 
   ```
   module.exports.default = {
     viewData: {
-      siteTitle: 'My Ridiculous Blog',
+      siteTitle: 'My Toy Blog',
     },
   };
   ```
