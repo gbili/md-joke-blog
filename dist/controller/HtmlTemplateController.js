@@ -11,7 +11,7 @@ var _fs = _interopRequireDefault(require("fs"));
 
 var _BaseController = _interopRequireDefault(require("./BaseController"));
 
-var _TemplateEngine = _interopRequireDefault(require("../util/TemplateEngine"));
+var _mostachito = _interopRequireDefault(require("mostachito"));
 
 class HtmlTemplateController extends _BaseController.default {
   constructor(config) {
@@ -47,8 +47,8 @@ class HtmlTemplateController extends _BaseController.default {
     viewData = { ...configViewData,
       ...viewData
     };
-    const te = new _TemplateEngine.default(this.config.missingRefValueReplacement);
-    const hydratedView = te.hydrate(viewTemplate, viewData);
+    const mostachito = new _mostachito.default(this.config.missingRefValueReplacement);
+    const hydratedView = mostachito.hydrate(viewTemplate, viewData);
     this.response.code = 200;
     this.response.headers = {
       'content-type': 'text/html; charset=utf-8'
