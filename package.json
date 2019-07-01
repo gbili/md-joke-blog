@@ -4,8 +4,6 @@
   "description": "Markdown Toy Blog, Nodejs, Mocha/Chai",
   "main": "dist/index.js",
   "scripts": {
-    "test": "mocha --require @babel/register --recursive",
-    "test:single": "istanbul cover -x test* _mocha -- -R spec --require @babel/register --recursive",
     "config:prebuild": "rm -fr ./config-dist",
     "config:build": "npm run config:prebuild && babel config --out-dir config-dist",
     "clean": "rm -fr ./dist/*",
@@ -13,6 +11,12 @@
     "prebuild": "npm run clean && npm run config:build",
     "build": "babel src --out-dir dist",
     "postbuild": "rm -fr ./compiled_user_content/* && node ./dist/config/generate.js && npm run makebin && cp -fR ./src/view ./dist/",
+    "coverage:generate": "nyc npm run test",
+    "coverage:check": "nyc check-coverage --lines 10 --branches 10 --statements 10 --functions 10",
+    "coverage:report": "nyc report --reporter=text-lcov > coverage.lcov",
+    "coverage:report:upload": "CODECOV_TOKEN=f96b3547-9fde-414a-9b33-e2d258138970 codecov",
+    "coverage": "npm run coverage:generate && npm run coverage:check && npm run coverage:report && npm run coverage:report:upload",
+    "test": "mocha --require @babel/register --recursive",
     "serve": "NODE_ENV=production node ./dist/index.js",
     "semantic-release": "semantic-release"
   },
@@ -22,7 +26,7 @@
   },
   "config": {
     "ghooks": {
-      "pre-commit": "npm run test"
+      "pre-commit": "npm run test && npm run coverage:generate && npm run coverage:check"
     }
   },
   "repository": {
@@ -46,11 +50,13 @@
   "homepage": "https://github.com/gbili/md-toy-blog#readme",
   "devDependencies": {
     "chai": "4.2.0",
+    "codecov": "^3.5.0",
     "codecov.io": "^0.1.6",
     "ghooks": "^2.0.4",
     "istanbul": "^0.4.5",
     "mocha": "6.1.4",
     "nodemon": "^1.19.1",
+    "nyc": "^14.1.1",
     "semantic-release": "^15.13.18"
   },
   "dependencies": {
@@ -64,7 +70,7 @@
     "github-markdown-css": "^3.0.1",
     "highlight.js": "^9.15.8",
     "mime-types": "^2.1.24",
-    "mostachito": "^1.0.1",
+    "mostachito": "^1.0.2",
     "node-prismjs": "^0.1.2",
     "primap": "1.0.0",
     "recursive-readdir": "^2.2.2",
