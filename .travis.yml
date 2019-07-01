@@ -3,16 +3,17 @@ language: node_js
 jobs:
   include:
     - stage: test
+      language: node_js
       env:
         - NODE_ENV=development
       node_js: lts/*
       script:
         - npm t
-        - npm run check-coverage
+        - npm run coverage
     - stage: release
+      language: node_js
       env:
         - NODE_ENV=development
       node_js: lts/*
       script:
-        - npm run report-coverage
         - npm run semantic-release
