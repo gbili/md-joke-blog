@@ -1,6 +1,6 @@
 import fs from 'fs';
 import BaseController from './BaseController';
-import TemplateEngine from '../util/TemplateEngine';
+import Mostachito from 'mostachito';
 
 class HtmlTemplateController extends BaseController {
   constructor(config) {
@@ -32,8 +32,8 @@ class HtmlTemplateController extends BaseController {
   hydrateView({viewTemplate, viewData}) {
     const configViewData = this.config.viewData || {};
     viewData = {...configViewData, ...viewData};
-    const te = new TemplateEngine(this.config.missingRefValueReplacement);
-    const hydratedView = te.hydrate(viewTemplate, viewData);
+    const mostachito = new Mostachito(this.config.missingRefValueReplacement);
+    const hydratedView = mostachito.hydrate(viewTemplate, viewData);
     this.response.code = 200;
     this.response.headers = {'content-type': 'text/html; charset=utf-8'};
     this.response.body = hydratedView;
