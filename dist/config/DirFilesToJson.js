@@ -45,7 +45,7 @@ class DirFilesToJson {
 
   generate(onSuccess, onFail, recrusiveRead) {
     recrusiveRead = typeof recrusiveRead === 'boolean' ? recrusiveRead : true;
-    if (typeof onSuccess === 'undefined') onSuccess = function (writenFilePath) {};
+    if (typeof onSuccess === 'undefined') onSuccess = function (writtenFilePath) {};
     if (typeof onFail === 'undefined') onFail = function (err) {};
     this.readFilesListPromise(recrusiveRead).then(this.writeJsonFilePromise).then(onSuccess).catch(onFail);
   }
