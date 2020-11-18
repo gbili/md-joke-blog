@@ -57,7 +57,7 @@
     "mocha": "6.1.4",
     "nodemon": "^1.19.1",
     "nyc": "^14.1.1",
-    "semantic-release": "^15.13.18"
+    "semantic-release": "^17.2.3"
   },
   "dependencies": {
     "@babel/cli": "^7.4.4",
