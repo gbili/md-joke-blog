@@ -68,7 +68,7 @@
     "@babel/runtime": "^7.4.5",
     "front-matter": "^3.0.2",
     "github-markdown-css": "^3.0.1",
-    "highlight.js": "^9.15.8",
+    "highlight.js": "^10.1.2",
     "mime-types": "^2.1.24",
     "mostachito": "^1.0.2",
     "node-prismjs": "^0.1.2",
